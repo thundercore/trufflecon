@@ -4,6 +4,18 @@ import '@thundercore/referral-solidity/contracts/Referral.sol';
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 
+library LibThunderRNG {
+    function rand() internal returns (uint256) {
+        uint256[1] memory m;
+        assembly {
+            if iszero(call(not(0), 0x8cC9C2e145d3AA946502964B1B69CE3cD066A9C7, 0, 0, 0x0, m, 0x20)) {
+                revert(0, 0)
+            }
+        }
+        return m[0];
+    }
+}
+
 contract ERC677 is ERC20 {
     event Transfer(address indexed from, address indexed to, uint value, bytes data);
     function transferAndCall(address, uint, bytes calldata) external returns (bool);
@@ -99,8 +111,7 @@ contract DoubleOrNothing is Ownable, Referral, ERC677Receiver {
         require(msg.value * 2 <= address(this).balance, 'Balance too low!');
         uint256 winnings = 0;
 
-        // DO NOT USE THIS IN PRODUCTION, IT IS INSECURE
-        if(uint256(blockhash(block.number -1)) % 2 == 0) {
+        if(LibThunderRNG.rand() % 2 == 0) {
             // 3% is deducted to cover the referral bonus
             winnings = msg.value * 197/100;
             address(msg.sender).transfer(winnings);
@@ -118,8 +129,7 @@ contract DoubleOrNothing is Ownable, Referral, ERC677Receiver {
 
         uint256 winnings = 0;
 
-        // DO NOT USE THIS IN PRODUCTION, IT IS INSECURE
-        if(uint256(blockhash(block.number - 1)) % 2 == 0) {
+        if(LibThunderRNG.rand() % 2 == 0) {
             winnings = _amount * 2;
 
             // This transaction can fail due to not enough gas being sent
