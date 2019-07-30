@@ -62,7 +62,6 @@ module.exports = {
       },
       network_id: 108
     },
-
     thunderTestnet: {
       provider: function() {
         return new HDWallet(
@@ -71,8 +70,8 @@ module.exports = {
           'https://testnet-rpc.thundercore.com'
         )
       },
-      network_id: 108
-    }
+      network_id: 18
+    },
 
     // Another network with more advanced options...
     // advanced: {
