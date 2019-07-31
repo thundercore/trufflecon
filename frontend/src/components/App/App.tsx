@@ -7,7 +7,7 @@ import { IWeb3Context } from '../../contexts/Web3Context/Web3Context'
 import { IContractContext } from '../../contexts/ContractContext/ContractContext'
 import GameContainer from '../../containers/GameContainer/GameContainer'
 import config from '../../config'
-import { abi as Erc677Abi } from './ERC677.json'
+// import { abi as Erc677Abi } from './ERC677.json'
 import { ContractEnum } from '../../ContractEnum'
 
 interface IAppProps {}
@@ -39,17 +39,17 @@ export class App extends React.PureComponent<IAppProps, IAppState> {
               address: config[ContractEnum.DoubleOrNothing],
               signer: params.signer!,
               abi
-            },
-            {
-              address: config[ContractEnum.TTDai],
-              signer: params.signer!,
-              abi: Erc677Abi
-            },
-            {
-              address: config[ContractEnum.TTUsdt],
-              signer: params.signer!,
-              abi: Erc677Abi
             }
+            // {
+            //   address: config[ContractEnum.TTDai],
+            //   signer: params.signer!,
+            //   abi: Erc677Abi
+            // },
+            // {
+            //   address: config[ContractEnum.TTUsdt],
+            //   signer: params.signer!,
+            //   abi: Erc677Abi
+            // }
           ]}
           renderEnabled={contractParams =>
             this.renderGame(contractParams, params.address)
@@ -76,8 +76,8 @@ export class App extends React.PureComponent<IAppProps, IAppState> {
         contracts={{
           [ContractEnum.DoubleOrNothing]:
             params[config[ContractEnum.DoubleOrNothing]].contract,
-          [ContractEnum.TTUsdt]: params[config[ContractEnum.TTUsdt]].contract,
-          [ContractEnum.TTDai]: params[config[ContractEnum.TTDai]].contract
+          // [ContractEnum.TTUsdt]: params[config[ContractEnum.TTUsdt]].contract,
+          // [ContractEnum.TTDai]: params[config[ContractEnum.TTDai]].contract
         }}
       />
     )
