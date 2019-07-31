@@ -39,7 +39,7 @@ export class DoubleGameContainer extends React.PureComponent<
   constructor(props: IDoubleGameContainerProps) {
     super(props)
     this.watchBalance()
-    this.watchReferrals()
+    // this.watchReferrals()
     const referrerMatch = window.location.search.match(
       /referrer=(0x[a-fA-F0-9]{40})/
     )
@@ -75,22 +75,22 @@ export class DoubleGameContainer extends React.PureComponent<
     )
   }
 
-  watchReferrals = () => {
-    this.intervals.push(
-      setInterval(() => {
-        this.props.contract.accounts(this.props.address).then((info: any) => {
-          this.setState({
-            accountInfo: {
-              reward: info.reward.toString(),
-              referredCount: info.referredCount.toString(),
-              activeTimestamp:
-                info.lastActiveTimestamp.toString() * 1000 + 24 * 60 * 60 * 1000
-            }
-          })
-        })
-      }, 500)
-    )
-  }
+  // watchReferrals = () => {
+  //   this.intervals.push(
+  //     setInterval(() => {
+  //       this.props.contract.accounts(this.props.address).then((info: any) => {
+  //         this.setState({
+  //           accountInfo: {
+  //             reward: info.reward.toString(),
+  //             referredCount: info.referredCount.toString(),
+  //             activeTimestamp:
+  //               info.lastActiveTimestamp.toString() * 1000 + 24 * 60 * 60 * 1000
+  //           }
+  //         })
+  //       })
+  //     }, 500)
+  //   )
+  // }
 
   play = (val: number) => {
     this.setState({ disabled: true })
